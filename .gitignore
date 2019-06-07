@@ -20,25 +20,6 @@ sitemap.xml
 #
 # -----------------------------------------------------------------
 
-# ignore everything in the root except the "wp-content" directory.
-/*
-!wp-content/
-
-# ignore all files starting with .
-.*
-
-# track this file .gitignore (i.e. do NOT ignore it)
-!.gitignore
-
-# track .editorconfig file (i.e. do NOT ignore it)
-!.editorconfig
-
-# track readme.md in the root (i.e. do NOT ignore it)
-!readme.md
-
-# ignore all files that start with ~
-~*
-
 # ignore log files and databases
 *.log
 
