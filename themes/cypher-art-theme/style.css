@@ -1,0 +1,39 @@
+/*
+ Theme Name: Cypher Art
+ Author: Ivan Podkidyshev
+ Version: 0.1a;
+*/
+
+html {
+	height: 100%;
+}
+
+body {
+	/* positioning */
+	height: 100%;
+	/* styling */
+	background-color: #ccffff;
+}
+
+#main {
+	/* positioning */
+	/* box-sizing: border-box; */
+	display: flex;
+	margin: 10px auto;
+	/* styling */
+	height: 100%;
+	padding: 5px 10px;
+	background-color: white;
+	border-radius: 10px;
+}
+
+#cyphers {
+	/* positioning */
+	flex: 0 0 20%;
+	margin: 10px;
+	/* styling */
+}
+
+.content {
+	flex: 1;
+}
