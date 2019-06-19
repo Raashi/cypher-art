@@ -2,7 +2,9 @@
 <html>
 <head>
 	<?php wp_head(); ?>
-	<title></title>
+	<title><?php echo get_bloginfo(); ?></title>
 </head>
 <body>
-	<h1 id="header-site-name"><i>Cypher</i> Art</h1>
+<div id="ca-header">
+    <h1 id="header-site-name"><?php echo get_bloginfo(); ?></h1>
+</div>

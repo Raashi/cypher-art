@@ -1,8 +1,8 @@
 <?php get_header(); ?> 
 
-<div id="main">
+<div id="ca-main">
 
-	<div id="cyphers">
+	<div id="ca-cyphers" class="ca-block">
 	
 	<?php
 	$args = array(
@@ -24,8 +24,8 @@
 
 	</div>
 
-	<div class="content">
-		<h2>This is index content. We'll put here some constant info about the site.</h2>
+	<div id="ca-content" class="ca-block">
+		<h2>Это сайт о шифрах. Хаю-хай.</h2>
 	</div>
 	
 </div>

@@ -1,8 +1,8 @@
 <?php get_header(); ?> 
 
-<div id="main">
+<div id="ca-main">
 
-	<div id="cyphers">
+	<div id="ca-cyphers" class="ca-block">
 	
 	<?php
 	$args = array(
@@ -24,7 +24,7 @@
 
 	</div>
 
-	<div class="content">
+	<div id="ca-content" class="ca-block">
 		<?php the_post(); ?>
 		<h2><?php the_title(); ?></h2>
 		<?php the_content(); ?>
