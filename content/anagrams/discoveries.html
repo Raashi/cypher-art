@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="rus">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<p>Шифры Кеплера и Галилея являются осмысленной перестановкой символов или сочетаний исходного текста, так называемое анаграммирование. Так, фразу «ВСТРЕЧАЙ ЗАВТРА И КОЛЮ» Галилей мог бы анаграммировать так: «ЗАВТРАК И ЧАЙ ЮРЕ В СТОЛ». Получение анаграмм «осмысленного» вида было большим искусством.</p>
+<p>Анаграммирование можно рассматривать как упрощённый вариант шифра перестановки, хотя, по сути, эти преобразования не являются шифрованием. Автор анаграммы, отсылая её своим корреспондентам, не предполагал ее расшифровывания. Более того он считал его практически невозможным. Действительно, восстановить открытый текст из анаграммы весьма сложная задача. Цель анаграмм заключалась в защите «авторских прав» без публичного опубликования своих идей. Записав обычным текстом своё открытие, автор прятал эту бумагу и создавал анаграмму, которую и отсылал корреспонденту. В сопроводительном тексте автор сообщал, что удалось открыть удивительно явление, суть которого спрятана за анаграммой. В случае необходимости для подтверждения своего приоритета автор мог предъявить исходный открытый текст. Его истинность подтверждалась ранее отправленной анаграммой.</p>
+<p>Астрономы, вслед за Галилеем и Кеплером, продолжали использовать анаграммирование. Так Кристиан Гюйгенс, открыв кольца Сатурна, записал фразу: «Annulo cingiur tenni piano, nusquem cohaerente, ad ecliptican inclinato» («Он окружен тонким плоским кольцом, нигде не касающимся, наклоненным к эклиптике») в виде ряда частот букв:</p>
+<p>7А, 5С, ID, 5Е, 1G, 1Н, 71, 4L, 2М, 9N, 40, 2Р, 1Q, 2R, IS, 5T, 5U.</p>
+<input id="input-discoveries" type="text"><button id="button-discoveries">Зашифровать</button><br>
+<p>Криптограмма: </p><input id="label-discoveries">
+<script type="text/javascript">
+    const isAlpha = function (char) {
+        return typeof char === "string" && char.length === 1
+            && ((char >= "a" && char <= "z" || char >= "A" && char <= "Z")
+            || (char >= "а" && char <= "я" || char >= "А" && char <= "Я"));
+    };
+    const button = document.getElementById("button-discoveries");
+    button.onclick = function () {
+        const input = document.getElementById("input-discoveries");
+        const text = input.value;
+        const letters = {};
+        for (let i = 0; i < text.length; i++) {
+            const char = text.charAt(i);
+            if (isAlpha(char) === false)
+                continue;
+            if (!(char in letters))
+                letters[char] = 0;
+            letters[char] += 1;
+        }
+        const crypto = Object.entries(letters);
+        crypto.sort(function (a, b) {
+            if (a[0] > b[0])
+                return 1;
+            if (a[0] < b[0])
+                return -1;
+            return 0;
+        });
+        let result = "";
+        for (let i = 0; i < crypto.length; i++) {
+            const entry = crypto[i];
+            result += entry[1].toString() + entry[0] + " ";
+        }
+        const label = document.getElementById("label-discoveries");
+        label.value = result;
+    };
+</script>
+</body>
+</html>
