@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Routing encryption</title>
+</head>
+<body>
+<p>Открытый текст разбивается на блоки длины <i>k*l</i> (<i>k</i>, <i>l</i> in <i>N</i>). Блок вписывается построчно в прямоугольную таблицу, состоящую из <i>k</i> строк и <i>l</i> столбцов. Соответствующий блок криптограммы получается выписыванием букв из этой таблицы в порядке их следования вдоль некоторого маршрута, который и является ключом.</p>
+<p>Перед шифрованием необходимо сделать длину открытого текста кратной длине блока <i>k*l</i>. Для этого по необходимости в конец открытого текста добавляется нужное число букв. Обычно в качестве дополнительных букв выбирают самые частые буквы алфавита открытого текста. Неумелый выбор дополнительных знаков частично поможет криптоаналитику противника.</p>
+<p>Число строк:</p><select id="routing-select-rows">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+</select>
+<p>Число столбцов:</p><select id="routing-select-columns">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+</select>
+
+<br>
+
+<table max_elem="0" id="routing-table">
+    <tr><td>el</td></tr>
+</table>
+<p>Открытый текст или криптограмма:</p><input id="routing-text">
+<button id="routing-button-encrypt">Зашифровать</button>
+<button id="routing-button-decrypt">Расшифровать</button>
+<p>Криптограмма/расшифрованный текст:</p><input id="decrypted">
+<script type="text/javascript">
+    const getCellByNumber = function (number /* int */) {
+        const table = document.getElementById("routing-table");
+        const numberStr = number.toString();
+        for (let i = 0; i < table.rows.length; i++)
+            for (let j = 0; j < table.rows[0].cells.length; j++)
+                if (table.rows[i].cells[j].innerHTML === numberStr)
+                    return table.rows[i].cells[j];
+        //TODO: return undefined or exception
+    };
+
+    const unmarkCell = function (table, cell) {
+        if (cell.innerHTML === "-")
+            return;
+        const number = parseInt(cell.innerHTML);
+        const maxElem = parseInt(table.getAttribute("max_elem"));
+        for (let i = maxElem; i > number; i--)
+            getCellByNumber(i).innerHTML = "-";
+        cell.innerHTML = "-";
+        table.setAttribute("max_elem", (number - 1).toString());
+    };
+
+    const createCell = function (i, j, table) {
+        const cell = document.createElement('td');
+        cell.setAttribute("i", i.toString());
+        cell.setAttribute("j", j.toString());
+        cell.innerHTML = "-";
+        cell.onclick = function () {
+            const text = cell.innerHTML;
+            if (text === "-") {
+                cell.innerHTML = (parseInt(table.getAttribute("max_elem")) + 1).toString();
+                table.setAttribute("max_elem", cell.innerHTML);
+            }
+            else
+                unmarkCell(cell);
+        };
+    };
+
+    const onRowsChange = function () {
+        const table = document.getElementById("routing-table");
+        const rowsCountOld = table.rows.length;
+        const rowsCount = parseInt(this.value);
+
+        if (rowsCountOld === rowsCount)
+            return;
+
+        const colsCount = table.rows[0].cells.length;
+
+        if (rowsCountOld < rowsCount)
+            for (let i_row = rowsCountOld; i_row < rowsCount; i_row++) {
+                const newRow = document.createElement('tr');
+                for (let i = 0; i < colsCount; i++) {
+                    const newCell = document.createElement('td');
+                    newCell.innerHTML = "el";
+                    newRow.appendChild(newCell);
+                }
+                table.appendChild(newRow);
+            }
+        else for (let i_row = rowsCountOld; i_row > rowsCount; i_row--)
+            table.removeChild(table.lastChild);
+    };
+    const rowsInput = document.getElementById("routing-select-rows");
+    rowsInput.onchange = onRowsChange;
+
+    const onColumnsChange = function () {
+        const table = document.getElementById("routing-table");
+        const colsCountOld = table.rows[0].cells.length;
+        const colsCount = parseInt(this.value);
+
+        if (colsCountOld === colsCount)
+            return;
+
+        const rowsCount = table.rows.length;
+
+        if (colsCountOld < colsCount)
+            for (let i_col = colsCountOld; i_col < colsCount; i_col++) {
+                for (let i = 0; i < rowsCount; i++) {
+                    const newCell = document.createElement('td');
+                    newCell.innerHTML = "el";
+                    table.rows[i].appendChild(newCell);
+                }
+            }
+        else for (let i_col = colsCountOld; i_col > colsCount; i_col--)
+            for (let i = 0; i < rowsCount; i++)
+                table.rows[i].removeChild(table.rows[i].lastChild);
+    };
+
+
+
+    const columnsInput = document.getElementById("routing-select-columns");
+    columnsInput.onchange = onColumnsChange;
+
+    rowsInput.onchange(null);
+</script>
+</body>
+</html>
