@@ -27,7 +27,7 @@
 <br>
 
 <table max_elem="0" id="routing-table">
-    <tr><td>el</td></tr>
+    <tr><td>-</td></tr>
 </table>
 <p>Открытый текст или криптограмма:</p><input id="routing-text">
 <button id="routing-button-encrypt">Зашифровать</button>
@@ -42,6 +42,7 @@
                 if (table.rows[i].cells[j].innerHTML === numberStr)
                     return table.rows[i].cells[j];
         //TODO: return undefined or exception
+        throw Error(`Не могу получить ячейку со значением ${number}`);
     };
 
     const unmarkCell = function (table, cell) {
@@ -55,20 +56,30 @@
         table.setAttribute("max_elem", (number - 1).toString());
     };
 
-    const createCell = function (i, j, table) {
+    const onclickCell = function (cell, table) {
+        const text = cell.innerHTML;
+        if (text === "-") {
+            const maxElem = parseInt(table.getAttribute("max_elem"));
+            cell.innerHTML = (maxElem + 1).toString();
+            table.setAttribute("max_elem", cell.innerHTML);
+        }
+        else
+            unmarkCell(table, cell);
+    };
+
+    const createCell = function (i, j, row, table) {
         const cell = document.createElement('td');
         cell.setAttribute("i", i.toString());
         cell.setAttribute("j", j.toString());
         cell.innerHTML = "-";
-        cell.onclick = function () {
-            const text = cell.innerHTML;
-            if (text === "-") {
-                cell.innerHTML = (parseInt(table.getAttribute("max_elem")) + 1).toString();
-                table.setAttribute("max_elem", cell.innerHTML);
-            }
-            else
-                unmarkCell(cell);
-        };
+        cell.onclick = () => { onclickCell(cell, table) };
+        row.appendChild(cell);
+    };
+
+    const deleteLastCell = function (i_row, table) {
+        const row = table.rows[i_row];
+        unmarkCell(table, row.lastChild);
+        row.removeChild(row.lastChild);
     };
 
     const onRowsChange = function () {
@@ -84,15 +95,16 @@
         if (rowsCountOld < rowsCount)
             for (let i_row = rowsCountOld; i_row < rowsCount; i_row++) {
                 const newRow = document.createElement('tr');
-                for (let i = 0; i < colsCount; i++) {
-                    const newCell = document.createElement('td');
-                    newCell.innerHTML = "el";
-                    newRow.appendChild(newCell);
-                }
+                for (let i = 0; i < colsCount; i++)
+                    createCell(i_row, i, newRow, table);
                 table.appendChild(newRow);
             }
-        else for (let i_row = rowsCountOld; i_row > rowsCount; i_row--)
-            table.removeChild(table.lastChild);
+        else
+            for (let i_row = rowsCountOld - 1; i_row >= rowsCount; i_row--) {
+                for (let i_col = colsCount - 1; i_col >= 0; i_col--)
+                    deleteLastCell(i_row, table);
+                table.removeChild(table.lastChild);
+            }
     };
     const rowsInput = document.getElementById("routing-select-rows");
     rowsInput.onchange = onRowsChange;
@@ -109,18 +121,14 @@
 
         if (colsCountOld < colsCount)
             for (let i_col = colsCountOld; i_col < colsCount; i_col++) {
-                for (let i = 0; i < rowsCount; i++) {
-                    const newCell = document.createElement('td');
-                    newCell.innerHTML = "el";
-                    table.rows[i].appendChild(newCell);
-                }
+                for (let i_row = 0; i_row < rowsCount; i_row++)
+                    createCell(i_row, i_col, table.rows[i_row], table);
             }
-        else for (let i_col = colsCountOld; i_col > colsCount; i_col--)
-            for (let i = 0; i < rowsCount; i++)
-                table.rows[i].removeChild(table.rows[i].lastChild);
+        else
+            for (let i_col = colsCountOld; i_col > colsCount; i_col--)
+                for (let i_row = 0; i_row < rowsCount; i_row++)
+                    deleteLastCell(i_row, table);
     };
-
-
 
     const columnsInput = document.getElementById("routing-select-columns");
     columnsInput.onchange = onColumnsChange;
