@@ -28,7 +28,7 @@
 
 <br>
 
-<table max_elem="0" id="route-table">
+<table id="route-table">
     <!-- <tr><td>-</td></tr> -->
 </table>
 
@@ -158,6 +158,7 @@
 
     // rowsInput.onchange(null);
     const table = document.getElementById("route-table");
+    table.setAttribute("max_elem", "0");
     const firstRow = document.createElement("tr");
     table.appendChild(firstRow);
     createCell(0, 0, firstRow, table);
