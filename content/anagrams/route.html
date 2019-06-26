@@ -174,8 +174,11 @@
     };
 
     const encryptBlock = function (block, key) {
-        //TODO: implement function encryptBlock
-        return block;
+        let result = "";
+        for (let i = 0; i < key.length; i++)
+            // 1-numeration to 0-numeration
+            result += block.charAt(key[i] - 1);
+        return result;
     };
 
     const encrypt = function () {
@@ -198,8 +201,11 @@
     };
 
     const decryptBlock = function (block, key) {
-        //TODO: implement function decryptBlock
-        return block;
+        let result = new Array(block.length);
+        for (let i = 0; i < key.length; i++) {
+            result[key[i] - 1] = block.charAt(i);
+        }
+        return result.join("");
     };
 
     const decrypt = function () {
