@@ -33,21 +33,27 @@
 </table>
 
 <label for="route-text">Открытый текст:</label>
-<input id="route-text">
+<br>
+<textarea id="route-text" style="resize: none;" rows="5" cols="60"></textarea>
+<br>
 <button id="route-button-encrypt">Зашифровать</button>
 <br>
 <label for="route-encrypted">Расшифрованный текст:</label>
-<textarea id="route-encrypted"></textarea>
+<br>
+<textarea id="route-encrypted" style="resize: none" rows="5" cols="60"></textarea>
 
 <br>
 <br>
 
 <label for="route-cryptogram">Зашифрованный текст:</label>
-<input id="route-cryptogram">
+<br>
+<textarea id="route-cryptogram" style="resize: none;" rows="5" cols="60"></textarea>
+<br>
 <button id="route-button-decrypt">Расшифровать</button>
 <br>
 <label for="route-decrypted">Криптограмма/расшифрованный текст:</label>
-<textarea id="route-decrypted"></textarea>
+<br>
+<textarea id="route-decrypted" style="resize: none" rows="5" cols="60"></textarea>
 
 <script type="text/javascript">
     const getCellByNumber = function (number /* int */) {
@@ -85,6 +91,7 @@
 
     const createCell = function (i, j, row, table) {
         const cell = document.createElement('td');
+        cell.setAttribute("style", "cursor: default; user-select: none;");
         cell.setAttribute("i", i.toString());
         cell.setAttribute("j", j.toString());
         cell.innerHTML = "-";
@@ -160,7 +167,6 @@
         const rowsCount = table.rows.length;
         const colsCount = table.rows[0].childElementCount;
         if (parseInt(table.getAttribute("max_elem")) < rowsCount * colsCount) {
-            //TODO: give user an error message - key not completed
             alert("Ключ не заполнен");
             return null;
         }
