@@ -7,7 +7,8 @@
 <body>
 <p>Открытый текст разбивается на блоки длины <i>k*l</i> (<i>k</i>, <i>l</i> in <i>N</i>). Блок вписывается построчно в прямоугольную таблицу, состоящую из <i>k</i> строк и <i>l</i> столбцов. Соответствующий блок криптограммы получается выписыванием букв из этой таблицы в порядке их следования вдоль некоторого маршрута, который и является ключом.</p>
 <p>Перед шифрованием необходимо сделать длину открытого текста кратной длине блока <i>k*l</i>. Для этого по необходимости в конец открытого текста добавляется нужное число букв. Обычно в качестве дополнительных букв выбирают самые частые буквы алфавита открытого текста. Неумелый выбор дополнительных знаков частично поможет криптоаналитику противника.</p>
-<p>Число строк:</p><select id="routing-select-rows">
+<label for="routing-select-rows">Число строк:</label>
+<select id="routing-select-rows">
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -15,7 +16,8 @@
     <option value="5">5</option>
     <option value="6">6</option>
 </select>
-<p>Число столбцов:</p><select id="routing-select-columns">
+<label for="routing-select-columns">Число столбцов:</label>
+<select id="routing-select-columns">
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -27,12 +29,26 @@
 <br>
 
 <table max_elem="0" id="routing-table">
-    <tr><td>-</td></tr>
+    <!-- <tr><td>-</td></tr> -->
 </table>
-<p>Открытый текст или криптограмма:</p><input id="routing-text">
+
+<label for="routing-text">Открытый текст:</label>
+<input id="routing-text">
 <button id="routing-button-encrypt">Зашифровать</button>
+<br>
+<label for="routing-encrypted">Расшифрованный текст:</label>
+<textarea id="routing-encrypted"></textarea>
+
+<br>
+<br>
+
+<label for="routing-cryptogram">Зашифрованный текст:</label>
+<input id="routing-cryptogram">
 <button id="routing-button-decrypt">Расшифровать</button>
-<p>Криптограмма/расшифрованный текст:</p><input id="decrypted">
+<br>
+<label for="routing-decrypted">Криптограмма/расшифрованный текст:</label>
+<textarea id="routing-decrypted"></textarea>
+
 <script type="text/javascript">
     const getCellByNumber = function (number /* int */) {
         const table = document.getElementById("routing-table");
@@ -133,7 +149,93 @@
     const columnsInput = document.getElementById("routing-select-columns");
     columnsInput.onchange = onColumnsChange;
 
-    rowsInput.onchange(null);
+    // rowsInput.onchange(null);
+    const table = document.getElementById("routing-table");
+    const firstRow = document.createElement("tr");
+    table.appendChild(firstRow);
+    createCell(0, 0, firstRow, table);
+
+    const getKey = function () {
+        const table = document.getElementById("routing-table");
+        const rowsCount = table.rows.length;
+        const colsCount = table.rows[0].childElementCount;
+        if (parseInt(table.getAttribute("max_elem")) < rowsCount * colsCount) {
+            //TODO: give user an error message - key not completed
+            alert("Ключ не заполнен");
+            return null;
+        }
+        const key = [];
+        for (let i_row = 0; i_row < rowsCount; i_row++)
+            for (let i_col = 0; i_col < colsCount; i_col++) {
+                const cellText = table.rows[i_row].cells[i_col].innerHTML;
+                key.push(parseInt(cellText));
+            }
+        return key;
+    };
+
+    const encryptBlock = function (block, key) {
+        //TODO: implement function encryptBlock
+        return block;
+    };
+
+    const encrypt = function () {
+        const text = document.getElementById("routing-text").value;
+        const key = getKey();
+        if (key === null)
+            return;
+        if (text.length % key.length > 0) {
+            //TODO: give user an error message - text.length % key.length =/= 0
+            alert("Тект невозможно разбить на блоки по длине ключа");
+            return;
+        }
+        let cryptogram = "";
+        const blocksCount = text.length / key.length;
+        for (let iBlock = 0; iBlock < blocksCount; iBlock++) {
+            const block = text.substring(iBlock * key.length, (iBlock + 1) * key.length);
+            cryptogram += encryptBlock(block, key);
+        }
+        return cryptogram;
+    };
+
+    const decryptBlock = function (block, key) {
+        //TODO: implement function decryptBlock
+        return block;
+    };
+
+    const decrypt = function () {
+        const cryptogram = document.getElementById("routing-cryptogram").value;
+        const key = getKey();
+        if (key === null)
+            return;
+        if (cryptogram.length % key.length > 0) {
+            //TODO: give user an error message - text.length % key.length =/= 0
+            alert("Криптограмму невозможно разбить на блоки по длине ключа");
+            return;
+        }
+        let decrypted = "";
+        const blocksCount = cryptogram.length / key.length;
+        for (let iBlock = 0; iBlock < blocksCount; iBlock++) {
+            const block = cryptogram.substring(iBlock * key.length, (iBlock + 1) * key.length);
+            decrypted += decryptBlock(block, key);
+        }
+        return decrypted;
+    };
+
+    const encryptButton = document.getElementById("routing-button-encrypt");
+    encryptButton.onclick = () => {
+        const encrypted = encrypt();
+        if (encrypted === undefined)
+            return;
+        document.getElementById("routing-encrypted").innerHTML = encrypted;
+    };
+
+    const decryptButton = document.getElementById("routing-button-decrypt");
+    decryptButton.onclick = () => {
+        const decrypted = decrypt();
+        if (decrypted === undefined)
+            return;
+        document.getElementById("routing-decrypted").innerHTML = decrypted;
+    }
 </script>
 </body>
 </html>
