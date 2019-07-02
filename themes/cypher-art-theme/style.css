@@ -17,7 +17,12 @@ body {
 }
 
 #ca-header {
-	height: 75px;
+
+}
+
+.menu-item {
+	display: inline;
+	font-weight: bold;
 }
 
 #ca-header h1 {
@@ -64,6 +69,10 @@ body {
 	max-width: 250px;
 	/* styling */
 	background-color: white;
+
+	/*display: flex;*/
+	/*justify-content: center;*/
+	/*align-items: center;*/
 }
 
 #ca-content {
