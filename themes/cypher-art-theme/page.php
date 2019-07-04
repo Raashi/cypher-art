@@ -1,12 +1,12 @@
-<?php
-	get_header();
+<?php get_header(); ?>
 
-	while (have_posts()) {
-		the_post(); ?>
-		<h1>This is a page, not a post</h1>
-		<h2><?php the_title(); ?></h2>
-		<?php the_content(); ?>
-	<?php }
+<div id="ca-main">
+    <div id="ca-page" class="ca-block">
+        <?php the_post(); ?>
+        <h2><?php the_title(); ?></h2>
+        <?php the_content(); ?>
+    </div>
 
-	get_footer();
-?>
+</div>
+
+<?php get_footer(); ?>
