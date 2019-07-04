@@ -6,8 +6,8 @@
 </head>
 <body>
 <div id="ca-header">
-    <h1 id="header-site-name"><?php echo get_bloginfo(); ?></h1>
+    <h1 id="header-site-name"><a href="<?php get_home_url(); ?>"><?php echo get_bloginfo(); ?></a></h1>
     <div id="ca-header-menu">
-        <?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?>
+        <?php wp_nav_menu(array('theme_location' => 'header-menu')); ?>
     </div>
 </div>

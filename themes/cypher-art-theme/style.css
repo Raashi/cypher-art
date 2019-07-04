@@ -31,6 +31,10 @@ body {
 	color: #3f89ff;
 }
 
+#ca-header h1 a {
+	color: inherit;
+}
+
 #ca-footer {
 	height: 50px;
 	background-color: #494949;
@@ -43,7 +47,7 @@ body {
 
 #ca-main {
 	/* positioning */
-	flex: 1;
+	flex: 1; /* positioning inside parent - body selector */
 	display: flex;
 	flex-wrap: wrap;
 	align-content: stretch;
@@ -60,29 +64,10 @@ body {
 	border-bottom-style: solid;
 }
 
-#ca-cyphers {
-	/* positioning */
-	/* flex: 0 0 20%; */
-	flex-basis: auto;
-	flex-grow: 1;
-	min-width: 150px;
-	max-width: 250px;
-	/* styling */
-	background-color: white;
-
-	/*display: flex;*/
-	/*justify-content: center;*/
-	/*align-items: center;*/
-}
-
-#ca-content {
-	flex: 1;
-	min-width: 300px;
-	/* styling */
-	background-color: white;
-}
-
 .ca-block {
+	/* not expand */
+	align-self: flex-start;
+
 	margin: 10px;
 	padding: 10px;
 
@@ -90,8 +75,27 @@ body {
 	border-width: 2px;
 	border-color: #e8e8e8;
 	border-style: solid;
-	/* not expand */
-	height: 0%;
+
+	/* styling */
+	background-color: white;
+}
+
+#ca-cyphers {
+	flex-basis: auto;
+	flex-grow: 1;
+	min-width: 150px;
+	max-width: 250px;
+	/* styling */
+}
+
+#ca-content {
+	flex: 1;
+	min-width: 300px;
+	/* styling */
+}
+
+#ca-page {
+	width: 100%;
 }
 
 a {
