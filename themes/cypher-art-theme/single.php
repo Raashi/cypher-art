@@ -4,7 +4,13 @@
 
 	<div id="ca-cyphers" class="ca-block">
 	<?php
-    function ca_write_posts($query) {
+    function ca_write_posts($cat_ID) {
+	    $args = array(
+		    'posts_per_page' => -1,
+		    'post_type' => 'post',
+		    'cat' => $cat_ID
+	    );
+	    $query = new WP_Query($args);
 	    if ($query->have_posts()) {
 		    while ($query->have_posts()) {
 			    $query->the_post();
@@ -27,26 +33,15 @@
     $children_categories = get_categories($args);
 
     // посты в корневой рубрике
-
+    ca_write_posts($root_category_id);
     // посты в подрубриках
-    foreach ($children_categories as $cat) {
-        ?>
+    foreach ($children_categories as $cat) { ?>
         <div class="ca-cyphers-cat">
             <a href="<?php echo get_category_link($cat->cat_ID) ?>"><b><?php echo $cat->cat_name; ?></b></a>
             <br>
-        <?php
-	    $args = array(
-		    'posts_per_page' => -1,
-		    'post_type' => 'post',
-		    'cat' => $cat->cat_ID
-	    );
-	    $the_query = new WP_Query($args);
-	    ca_write_posts($the_query);
-	    ?>
+            <?php ca_write_posts($cat->cat_ID); ?>
         </div>
-        <?php
-    }
-	?>
+    <?php } ?>
 	</div>
 
 	<div id="ca-content" class="ca-block">
