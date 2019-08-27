@@ -154,3 +154,26 @@ td:not(:first-child) {
 textarea, button {
 	margin: 5px 0;
 }
+
+p, a, label, li {
+	font-size: 1.15rem;
+	/*letter-spacing: 0.05rem;*/
+	/*word-spacing: 0.085rem;*/
+}
+
+p {
+	text-align: justify;
+}
+
+h1 a, h1 {
+	font-size: 2rem;
+}
+
+h2 a, h2 {
+	font-size: 1.75rem;
+	margin: 10px 0;
+}
+
+h3 a, h3 {
+	font-size: 1.5rem;
+}
