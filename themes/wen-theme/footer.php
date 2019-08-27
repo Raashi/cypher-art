@@ -1,6 +1,6 @@
 <?php wp_footer(); ?>
 </body>
-<footer id="ca-footer">
+<footer id="wen-footer">
     <p>Саратовский Государственный университет. 2019</p>
 </footer>
 </html>

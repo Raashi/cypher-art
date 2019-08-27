@@ -1,8 +1,8 @@
 <?php get_header(); ?> 
 
-<div id="ca-main">
+<div id="wen-main">
 
-	<div id="ca-cyphers" class="ca-block">
+	<div id="wen-cyphers" class="wen-block">
 	
 	<?php
 	$args = array(
@@ -24,7 +24,7 @@
 
 	</div>
 
-	<div id="ca-content" class="ca-block">
+	<div id="wen-content" class="wen-block">
 		<h2>Это сайт о шифрах. Хаю-хай.</h2>
 	</div>
 	

@@ -1,5 +1,5 @@
 /*
- Theme Name: Cypher Art
+ Theme Name: Wen
  Author: Ivan Podkidyshev
  Version: 0.1a;
 */
@@ -16,29 +16,38 @@ body {
 	flex-direction: column;
 }
 
-#ca-header {
-	height: 75px;
+#wen-header {
+
 }
 
-#ca-header h1 {
+.menu-item {
+	display: inline;
+	font-weight: bold;
+}
+
+#wen-header h1 {
 	margin-left: 20px;
 	font-size: 30px;
 	color: #3f89ff;
 }
 
-#ca-footer {
+#wen-header h1 a {
+	color: inherit;
+}
+
+#wen-footer {
 	height: 50px;
 	background-color: #494949;
 }
 
-#ca-footer p {
+#wen-footer p {
 	color: white;
 	text-align: center;
 }
 
-#ca-main {
+#wen-main {
 	/* positioning */
-	flex: 1;
+	flex: 1; /* positioning inside parent - body selector */
 	display: flex;
 	flex-wrap: wrap;
 	align-content: stretch;
@@ -55,25 +64,10 @@ body {
 	border-bottom-style: solid;
 }
 
-#ca-cyphers {
-	/* positioning */
-	/* flex: 0 0 20%; */
-	flex-basis: auto;
-	flex-grow: 1;
-	min-width: 150px;
-	max-width: 250px;
-	/* styling */
-	background-color: white;
-}
+.wen-block {
+	/* not expand */
+	align-self: flex-start;
 
-#ca-content {
-	flex: 1;
-	min-width: 300px;
-	/* styling */
-	background-color: white;
-}
-
-.ca-block {
 	margin: 10px;
 	padding: 10px;
 
@@ -81,8 +75,27 @@ body {
 	border-width: 2px;
 	border-color: #e8e8e8;
 	border-style: solid;
-	/* not expand */
-	height: 0%;
+
+	/* styling */
+	background-color: white;
+}
+
+#wen-cyphers {
+	flex-basis: auto;
+	flex-grow: 1;
+	min-width: 150px;
+	max-width: 250px;
+	/* styling */
+}
+
+#wen-content {
+	flex: 1;
+	min-width: 300px;
+	/* styling */
+}
+
+#wen-page {
+	width: 100%;
 }
 
 a {
