@@ -1,6 +1,6 @@
 <?php get_header() ?>
 <?php
-function ca_write_posts($cat_ID) {
+function wen_write_posts($cat_ID) {
 	$args = array(
 		'posts_per_page' => -1,
 		'post_type' => 'post',
@@ -18,8 +18,8 @@ function ca_write_posts($cat_ID) {
 	}
 }
 ?>
-<div id="ca-main">
-    <div id="ca-cyphers" class="ca-block">
+<div id="wen-main">
+    <div id="wen-cyphers" class="wen-block">
         <?php
         $category = get_queried_object();
         $root_category_id = $category->parent;
@@ -32,18 +32,18 @@ function ca_write_posts($cat_ID) {
         $children_categories = get_categories($args);
 
         // посты в корневой рубрике
-        ca_write_posts($root_category_id);
+        wen_write_posts($root_category_id);
         // посты в подрубриках
         foreach ($children_categories as $cat) { ?>
-            <div class="ca-cyphers-cat">
+            <div class="wen-cyphers-cat">
                 <a href="<?php echo get_category_link($cat->cat_ID) ?>"><b><?php echo $cat->cat_name; ?></b></a>
                 <br>
-		        <?php ca_write_posts($cat->cat_ID); ?>
+		        <?php wen_write_posts($cat->cat_ID); ?>
             </div>
         <?php } ?>
     </div>
 
-    <div id="ca-content" class="ca-block">
+    <div id="wen-content" class="wen-block">
         <h2><?php single_cat_title(); ?></h2>
 	    <?php echo category_description(); ?>
     </div>
