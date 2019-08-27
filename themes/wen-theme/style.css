@@ -98,10 +98,20 @@ body {
 	/* styling */
 }
 
-.wen-cats-root {}
+.wen-cats-el {
+	margin: 5px 0;
+	display: inline-block;
+}
 
 .wen-cats-child {
-	margin-left: 10px;
+	margin-left: 15px;
+}
+
+.wen-cats-subcat {
+	border-bottom-color: #e8e8e8;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	padding-bottom: 5px;
 }
 
 #wen-content {
