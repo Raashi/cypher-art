@@ -35,6 +35,16 @@ body {
 	color: inherit;
 }
 
+#wen-header-menu div ul {
+	margin-left: 20px;
+	padding: 0;
+}
+
+#wen-header-menu div ul li:not(:last-child):after {
+	content: ' |';
+	margin: 0 10px;
+}
+
 #wen-footer {
 	height: 50px;
 	background-color: #494949;
@@ -52,7 +62,7 @@ body {
 	flex-wrap: wrap;
 	align-content: stretch;
 	/* styling */
-	padding: 20px;
+	padding: 10px;
 	background-color: #f2f2f2;
 
 	border-top-color: #e8e8e8;
@@ -80,12 +90,18 @@ body {
 	background-color: white;
 }
 
-#wen-cyphers {
+#wen-cats {
 	flex-basis: auto;
 	flex-grow: 1;
 	min-width: 150px;
 	max-width: 250px;
 	/* styling */
+}
+
+.wen-cats-root {}
+
+.wen-cats-child {
+	margin-left: 10px;
 }
 
 #wen-content {
