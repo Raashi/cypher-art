@@ -128,3 +128,29 @@ a {
 	color: #494949;
 	text-decoration: none;
 }
+
+table {
+	border: #e8e8e8 solid 4px;
+	margin: 20px;
+}
+
+td {
+	text-align: center;
+	vertical-align: middle;
+	padding: 4px;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+}
+
+tr:not(:last-child) td {
+	border-bottom: #e8e8e8 solid 2px;
+}
+
+td:not(:first-child) {
+	border-left: #e8e8e8 solid 2px;
+}
+
+textarea, button {
+	margin: 5px 0;
+}
