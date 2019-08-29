@@ -28,34 +28,57 @@
 
 <br>
 
-<table id="route-table">
-    <!-- <tr><td>-</td></tr> -->
-</table>
+<table id="route-table"></table>
+<label for="route-select-fill">Заполнить таблицу-ключ:</label>
+<select id="route-select-fill">
+    <option value="trivia">Тривиально</option>
+    <option value="snake">Змейкой</option>
+    <option value="column">Столбцами</option>
+    <option value="random">Случайно</option>
+</select>
 
-<label for="route-text">Открытый текст:</label>
-<br>
-<textarea id="route-text" style="resize: none;" rows="5" cols="60"></textarea>
-<br>
-<button id="route-button-encrypt">Зашифровать</button>
-<br>
-<label for="route-encrypted">Расшифрованный текст:</label>
-<br>
-<textarea id="route-encrypted" style="resize: none" rows="5" cols="60"></textarea>
+<div class="tabs">
+    <input name="tabs" type="radio" id="tab-1" checked="checked" class="input"/>
+    <label for="tab-1" class="label">Шифрование</label>
+    <div class="panel">
+        <label for="route-text">Открытый текст:</label>
+        <br>
+        <textarea class="inline-padding" id="route-text" style="resize: none;" rows="5" cols="50"></textarea>
+        <br>
+        <button id="route-encrypt">Зашифровать</button>
+        <br>
+        <label for="route-encrypted">Зашифрованный текст:</label>
+        <br>
+        <textarea class="inline-padding" id="route-encrypted" style="resize: none;" rows="5" cols="50"></textarea>
+    </div>
 
-<br>
-<br>
-
-<label for="route-cryptogram">Зашифрованный текст:</label>
-<br>
-<textarea id="route-cryptogram" style="resize: none;" rows="5" cols="60"></textarea>
-<br>
-<button id="route-button-decrypt">Расшифровать</button>
-<br>
-<label for="route-decrypted">Криптограмма/расшифрованный текст:</label>
-<br>
-<textarea id="route-decrypted" style="resize: none" rows="5" cols="60"></textarea>
+    <input name="tabs" type="radio" id="tab-2" class="input"/>
+    <label for="tab-2" class="label">Дешифрование</label>
+    <div class="panel">
+        <label for="route-crypto">Криптограмма:</label>
+        <br>
+        <textarea class="inline-padding" id="route-crypto" style="resize: none;" rows="5" cols="50"></textarea>
+        <br>
+        <button id="route-decrypt">Расшифровать</button>
+        <br>
+        <label for="route-decrypted">Расшифрованный текст:</label>
+        <br>
+        <textarea class="inline-padding" id="route-decrypted" style="resize: none;" rows="5" cols="50"></textarea>
+    </div>
+</div>
 
 <script type="text/javascript">
+    function shuffle(a) {
+        let j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+        }
+        return a;
+    }
+
     const getCellByNumber = function (number /* int */) {
         const table = document.getElementById("route-table");
         const numberStr = number.toString();
@@ -63,7 +86,6 @@
             for (let j = 0; j < table.rows[0].cells.length; j++)
                 if (table.rows[i].cells[j].innerHTML === numberStr)
                     return table.rows[i].cells[j];
-        //TODO: return undefined or exception
         throw Error(`Не могу получить ячейку со значением ${number}`);
     };
 
@@ -156,7 +178,6 @@
     const columnsInput = document.getElementById("route-select-columns");
     columnsInput.onchange = onColumnsChange;
 
-    // rowsInput.onchange(null);
     const table = document.getElementById("route-table");
     table.setAttribute("max_elem", "0");
     const firstRow = document.createElement("tr");
@@ -164,7 +185,6 @@
     createCell(0, 0, firstRow, table);
 
     const getKey = function () {
-        const table = document.getElementById("route-table");
         const rowsCount = table.rows.length;
         const colsCount = table.rows[0].childElementCount;
         if (parseInt(table.getAttribute("max_elem")) < rowsCount * colsCount) {
@@ -194,8 +214,7 @@
         if (key === null)
             return;
         if (text.length % key.length > 0) {
-            //TODO: give user an error message - text.length % key.length =/= 0
-            alert("Тект невозможно разбить на блоки по длине ключа");
+            alert("Ошибка! Тект невозможно разбить на блоки по длине ключа. Дополните текст, чтобы его длина стала кратной длине ключа.");
             return;
         }
         let cryptogram = "";
@@ -216,13 +235,12 @@
     };
 
     const decrypt = function () {
-        const cryptogram = document.getElementById("route-cryptogram").value;
+        const cryptogram = document.getElementById("route-crypto").value;
         const key = getKey();
         if (key === null)
             return;
         if (cryptogram.length % key.length > 0) {
-            //TODO: give user an error message - text.length % key.length =/= 0
-            alert("Криптограмму невозможно разбить на блоки по длине ключа");
+            alert("Ошибка! Криптограмму невозможно разбить на блоки по длине ключа. Часть криптограммы утеряна?");
             return;
         }
         let decrypted = "";
@@ -234,7 +252,31 @@
         return decrypted;
     };
 
-    const encryptButton = document.getElementById("route-button-encrypt");
+    const fillSelect = document.getElementById("route-select-fill");
+    fillSelect.onchange = function () {
+        if (fillSelect.selectedIndex < 0)
+            return;
+        const rowsCount = table.rows.length;
+        const colsCount = table.rows[0].childElementCount;
+        const perm = shuffle(Array.apply(null, {length: rowsCount * colsCount}).map(Number.call, Number));
+        for (let i = 0; i < rowsCount; i++)
+            for (let j = 0; j < colsCount; j++)
+                if (fillSelect.value === "trivia") {
+                    table.rows[i].cells[j].innerHTML = i * colsCount + j + 1;
+                } else if (fillSelect.value === "snake") {
+                    table.rows[i].cells[i % 2 === 0 ? j : colsCount - j - 1].innerHTML = i * colsCount + j + 1;
+                } else if (fillSelect.value === "column") {
+                    table.rows[i].cells[j].innerHTML = j * rowsCount + i + 1;
+                } else if (fillSelect.value === "random") {
+                    table.rows[i].cells[j].innerHTML = perm[i * colsCount + j] + 1;
+                }
+    };
+    fillSelect.onfocus = function () {
+        fillSelect.selectedIndex = -1;
+        fillSelect.blur();
+    };
+
+    const encryptButton = document.getElementById("route-encrypt");
     encryptButton.onclick = () => {
         const encrypted = encrypt();
         if (encrypted === undefined)
@@ -242,7 +284,7 @@
         document.getElementById("route-encrypted").innerHTML = encrypted;
     };
 
-    const decryptButton = document.getElementById("route-button-decrypt");
+    const decryptButton = document.getElementById("route-decrypt");
     decryptButton.onclick = () => {
         const decrypted = decrypt();
         if (decrypted === undefined)
