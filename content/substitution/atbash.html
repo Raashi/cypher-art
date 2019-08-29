@@ -16,27 +16,35 @@
 <button id="atbash-btn-eng">Заполнить английским алфавитом</button>
 <br>
 
-<label for="atbash-text">Введите открытый текст:</label>
-<br>
-<textarea id="atbash-text" style="resize: none;" rows="5" cols="50"></textarea>
-<br>
-<button id="atbash-encrypt">Зашифровать</button>
-<br>
-<label for="atbash-encrypted">Зашифрованный текст:</label>
-<br>
-<textarea id="atbash-encrypted" style="resize: none;" rows="5" cols="50"></textarea>
-<br>
+<div class="tabs">
+    <input name="tabs" type="radio" id="tab-1" checked="checked" class="input"/>
+    <label for="tab-1" class="label">Шифрование</label>
+    <div class="panel">
+        <label for="atbash-text">Введите открытый текст:</label>
+        <br>
+        <textarea class="inline-padding" id="atbash-text" style="resize: none;" rows="5" cols="50"></textarea>
+        <br>
+        <button id="atbash-encrypt">Зашифровать</button>
+        <br>
+        <label for="atbash-encrypted">Зашифрованный текст:</label>
+        <br>
+        <textarea class="inline-padding" id="atbash-encrypted" style="resize: none;" rows="5" cols="50"></textarea>
+    </div>
 
-<label for="atbash-crypto">Введите криптограмму:</label>
-<br>
-<textarea id="atbash-crypto" style="resize: none;" rows="5" cols="50"></textarea>
-<br>
-<button id="atbash-decrypt">Расшифровать</button>
-<br>
-<label for="atbash-decrypted">Расшифрованный текст:</label>
-<br>
-<textarea id="atbash-decrypted" style="resize: none;" rows="5" cols="50"></textarea>
-<br>
+    <input name="tabs" type="radio" id="tab-2" class="input"/>
+    <label for="tab-2" class="label">Дешифрование</label>
+    <div class="panel">
+        <label for="atbash-crypto">Введите криптограмму:</label>
+        <br>
+        <textarea class="inline-padding" id="atbash-crypto" style="resize: none;" rows="5" cols="50"></textarea>
+        <br>
+        <button id="atbash-decrypt">Расшифровать</button>
+        <br>
+        <label for="atbash-decrypted">Расшифрованный текст:</label>
+        <br>
+        <textarea class="inline-padding" id="atbash-decrypted" style="resize: none;" rows="5" cols="50"></textarea>
+    </div>
+</div>
 
 <script type="text/javascript">
     const rusAlph = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
