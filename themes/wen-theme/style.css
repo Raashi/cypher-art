@@ -43,6 +43,7 @@ body {
 #wen-header-menu div ul li:not(:last-child):after {
 	content: ' |';
 	margin: 0 10px;
+	color: #494949;
 }
 
 #wen-footer {
@@ -151,14 +152,12 @@ td:not(:first-child) {
 	border-left: #e8e8e8 solid 2px;
 }
 
-textarea, button {
-	margin: 5px 0;
-}
-
 p, a, label, li {
 	font-size: 1.15rem;
-	/*letter-spacing: 0.05rem;*/
-	/*word-spacing: 0.085rem;*/
+}
+
+textarea, button {
+	font-size: 1rem;
 }
 
 p {
