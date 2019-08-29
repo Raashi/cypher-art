@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<p>Шифр простой замены - класс методов шифрования, в которых каждой букве алфавита открытого текста ставится в соответствие буква алфавита криптограммы. Данное посопоставление будем называть таблицей шифрования. Для расшифровки шифр-текстов достаточно знать таблицу шифрования, либо алгоритм, по которому она генерируется.</p>
+<p>Шифр простой замены - класс методов шифрования, в которых каждой букве алфавита открытого текста ставится в соответствие буква алфавита криптограммы. Данное сопоставление будем называть таблицей шифрования. Для расшифровки шифр-текстов достаточно знать таблицу шифрования, либо алгоритм, по которому она генерируется.</p>
 <p>Ниже представлена простая реализация шифра простой замены. Для работы программы необходимо ввести:</p>
 <ul>
     <li>алфавит открытого текста (либо выбрать из предложенных),</li>
@@ -15,13 +15,13 @@
     <li>выбрать соответствующую операцию шифрования или дешифрования нажатием соответствующей кнопки.</li>
 </ul>
 
-<br>
+<label for="simple-textarea-alph">Алфавит открытого текста:</label><br>
+<div style="display: flex; align-items: center;">
+    <textarea id="simple-textarea-alph" style="resize: none;" rows="1" cols="50"></textarea>
+    <button id="simple-btn-alph-copy">&#8595;</button>
+</div>
 
-<label for="simple-textarea-alph">Алфавит открытого текста</label>
-<br>
-<textarea id="simple-textarea-alph" style="resize: none;" rows="1" cols="50"></textarea>
-<br>
-<label for="simple-select-alph">Варианты алфавита открытого текста:</label>
+<label for="simple-select-alph">Заполнить алфавит:</label>
 <select id="simple-select-alph">
     <option value="rus">Русский язык</option>
     <option value="eng">Английский язык</option>
@@ -30,120 +30,118 @@
 
 <label for="simple-textarea-alph-key">Перестановка алфавита шифр-текста:</label>
 <br>
-<textarea id="simple-textarea-alph-key" style="resize: none;" rows="1" cols="50"></textarea>
-<br>
-<label for="simple-select-alph-key">Варианты перестановок алфавита шифр-текста:</label>
-<select id="simple-select-alph-key">
-    <option value="rus-reversed">Обратный русский алфавит</option>
-    <option value="rus-mixed">Перемешанный русский алфавит</option>
-    <option value="eng-reversed">Обратный английский алфавит</option>
-    <option value="eng-mixed">Перемешанный английский алфавит</option>
-</select>
-<br>
+<div style="display: flex; align-items: center;">
+    <textarea id="simple-textarea-alph-key" style="resize: none;" rows="1" cols="50"></textarea>
+    <button id="simple-btn-mix">Перемешать</button>
+</div>
 
-<label for="simple-text">Введите открытый текст:</label>
-<br>
-<textarea id="simple-text" style="resize: none;" rows="5" cols="50"></textarea>
-<br>
-<button id="simple-encrypt">Зашифровать</button>
-<br>
+<div class="tabs">
+    <input name="tabs" type="radio" id="tab-1" checked="checked" class="input"/>
+    <label for="tab-1" class="label">Шифрование</label>
+    <div class="panel">
+        <label for="simple-text">Открытый текст:</label>
+        <br>
+        <textarea id="simple-text" style="resize: none;" rows="5" cols="50"></textarea>
+        <br>
+        <button id="simple-encrypt">Зашифровать</button>
+        <br>
+        <label for="simple-encrypted">Зашифрованный текст:</label>
+        <br>
+        <textarea id="simple-encrypted" style="resize: none;" rows="5" cols="50"></textarea>
+    </div>
 
-<label for="simple-crypto">Введите криптограмму:</label>
-<br>
-<textarea id="simple-crypto" style="resize: none;" rows="5" cols="50"></textarea>
-<br>
-<button id="simple-decrypt">Расшифровать</button>
-<br>
-
-<label for="simple-result">Результат операции:</label>
-<br>
-<textarea id="simple-result" style="resize: none;" rows="5" cols="50"></textarea>
+    <input name="tabs" type="radio" id="tab-2" class="input"/>
+    <label for="tab-2" class="label">Дешифрование</label>
+    <div class="panel">
+        <label for="simple-crypto">Криптограмма:</label>
+        <br>
+        <textarea id="simple-crypto" style="resize: none;" rows="5" cols="50"></textarea>
+        <br>
+        <button id="simple-decrypt">Расшифровать</button>
+        <br>
+        <label for="simple-decrypted">Расшифрованный текст:</label>
+        <br>
+        <textarea id="simple-decrypted" style="resize: none;" rows="5" cols="50"></textarea>
+    </div>
+</div>
 
 <script type="text/javascript">
     const rusAlph = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     const engAlph = "abcdefghijklmnopqrstuvwxyz";
+    const diffAlphLenAlert = "Ошибка! Ключ не является перестановкой алфавита.";
 
     const mixString = (str) => str.split('').sort(function(){return 0.5-Math.random()}).join('');
 
-    const alphText = document.getElementById("simple-textarea-alph");
+    const alphTextarea = document.getElementById("simple-textarea-alph");
     const alphSelect = document.getElementById("simple-select-alph");
     alphSelect.onchange = function () {
         if (alphSelect.selectedIndex < 0)
             return;
         if (alphSelect.value === "rus")
-            alphText.value = rusAlph;
+            alphTextarea.value = rusAlph;
         else if (alphSelect.value === "eng")
-            alphText.value = engAlph;
+            alphTextarea.value = engAlph;
         else
-            throw Error(`Не ясный выбор селекта simple-textarea-alph ${alphText.value}`);
+            throw Error(`Не ясный выбор селекта simple-textarea-alph ${alphTextarea.value}`);
     };
     alphSelect.onfocus = function () {
         alphSelect.selectedIndex = -1;
         alphSelect.blur();
     };
 
-    const alphTextKey = document.getElementById("simple-textarea-alph-key");
-    const alphSelectKey = document.getElementById("simple-select-alph-key");
-    alphSelectKey.onchange = function () {
-        if (alphSelectKey.selectedIndex < 0)
-            return;
-        if (alphSelectKey.value === "rus-reversed")
-            alphTextKey.value = rusAlph.split("").reverse().join("");
-        else if (alphSelectKey.value === "rus-mixed")
-            alphTextKey.value = mixString(rusAlph);
-        else if (alphSelectKey.value === "eng-reversed")
-            alphTextKey.value = engAlph.split("").reverse().join("");
-        else if (alphSelectKey.value === "eng-mixed")
-            alphTextKey.value = mixString(engAlph);
-        else
-            throw Error(`Не ясный выбор селекта simple-select-alph-key ${alphSelectKey.value}`);
-    };
-    alphSelectKey.onfocus = function () {
-        alphSelectKey.selectedIndex = -1;
-        alphSelectKey.blur();
+    const alphKeyTextarea = document.getElementById("simple-textarea-alph-key");
+    const alphMixButton = document.getElementById("simple-btn-mix");
+    alphMixButton.onclick = () => alphKeyTextarea.value = mixString(alphKeyTextarea.value);
+    const alphCopyButton = document.getElementById("simple-btn-alph-copy");
+    alphCopyButton.onclick = () => alphKeyTextarea.value = alphTextarea.value;
+
+    const isPermutation = function (orig, perm) {
+        if (orig.length !== perm.length)
+            return false;
+        for (const c of orig)
+            if (perm.indexOf(c) === -1)
+                return false;
+        return true;
     };
 
-    const encrypt = function (text, alph, key) {
+    const cypher = function (text, alph, key) {
         let cryptogram = "";
-        for (let i = 0; i < text.length; i++)
-            if (alph.indexOf(text.charAt(i)) > 0)
-                cryptogram += key[alph.indexOf(text.charAt(i))];
-            else
-                cryptogram += text.charAt(i);
+        text = text.lower();
+        alph = alph.lower();
+        key = key.lower();
+        for (const c of text) {
+            const idx = alph.indexOf(c);
+            cryptogram += (idx === -1 ? c : key[idx]);
+        }
         return cryptogram;
     };
 
-    const decrypt = function (cryptogram, alph, key) {
-        let decrypted = "";
-        for (let i = 0; i < cryptogram.length; i++)
-            if (key.indexOf(cryptogram.charAt(i)) > 0)
-                decrypted += alph[key.indexOf(cryptogram.charAt(i))];
-        return decrypted;
-    };
-
-    const alphElement = document.getElementById("simple-textarea-alph");
-    const alphKeyElement = document.getElementById("simple-textarea-alph-key");
-    const resultElement = document.getElementById("simple-result");
-
-    //TODO: check for duplicates in alph and alphKey Elements
+    const textTextarea = document.getElementById("simple-text");
+    const encryptedTextarea = document.getElementById("simple-encrypted");
     const encryptButton = document.getElementById("simple-encrypt");
-    encryptButton.onclick = function () {
-        if (alphElement.value.length !== alphKeyElement.value.length) {
-            alert("Длины алфавита открытого текста и криптограммы должны быть равны!");
+    encryptButton.onclick = () => {
+        const alph = alphTextarea.value;
+        const key = alphKeyTextarea.value;
+        const text = textTextarea.value;
+        if (!isPermutation(alph, key)) {
+            alert(diffAlphLenAlert);
             return;
         }
-        const textElement = document.getElementById("simple-text");
-        resultElement.value = encrypt(textElement.value, alphElement.value, alphKeyElement.value);
+        encryptedTextarea.value = cypher(text, alph, key);
     };
 
+    const cryptoTextarea = document.getElementById("simple-crypto");
+    const decryptedTextarea = document.getElementById("simple-decrypted");
     const decryptButton = document.getElementById("simple-decrypt");
-    decryptButton.onclick = function () {
-        if (alphElement.value.length !== alphKeyElement.value.length) {
-            alert("Длины алфавита открытого текста и криптограммы должны быть равны!");
+    decryptButton.onclick = () => {
+        const alph = alphTextarea.value;
+        const key = alphKeyTextarea.value;
+        const crypto = cryptoTextarea.value;
+        if (!isPermutation(alph, key)) {
+            alert(diffAlphLenAlert);
             return;
         }
-        const cryptoElement = document.getElementById("simple-crypto");
-        resultElement.value = decrypt(cryptoElement.value, alphElement.value, alphKeyElement.value);
+        decryptedTextarea.value = cypher(crypto, key, alph);
     };
 </script>
 

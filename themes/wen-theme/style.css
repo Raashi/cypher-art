@@ -179,7 +179,7 @@ h3 a, h3 {
 
 textarea, button, label {
 	display: inline-block;
-	padding: 5px 0;
+	margin: 0 3px 3px 3px;
 }
 
 .tabs {

@@ -20,7 +20,7 @@
     <input name="tabs" type="radio" id="tab-1" checked="checked" class="input"/>
     <label for="tab-1" class="label">Шифрование</label>
     <div class="panel">
-        <label for="atbash-text">Введите открытый текст:</label>
+        <label for="atbash-text">Открытый текст:</label>
         <br>
         <textarea class="inline-padding" id="atbash-text" style="resize: none;" rows="5" cols="50"></textarea>
         <br>
@@ -34,7 +34,7 @@
     <input name="tabs" type="radio" id="tab-2" class="input"/>
     <label for="tab-2" class="label">Дешифрование</label>
     <div class="panel">
-        <label for="atbash-crypto">Введите криптограмму:</label>
+        <label for="atbash-crypto">Криптограмма:</label>
         <br>
         <textarea class="inline-padding" id="atbash-crypto" style="resize: none;" rows="5" cols="50"></textarea>
         <br>
@@ -66,6 +66,8 @@
     setEngAlphButton.onclick = () => alphTextarea.value = engAlph;
 
     const cypher = (msg, alph) => {
+        msg = msg.lower();
+        alph = alph.lower();
         let res = "";
         for (const c of msg) {
             const idx = alph.indexOf(c);
