@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="rus">
+<head>
+    <meta charset="UTF-8">
+    <title>Шифр Атбаш</title>
+</head>
+<body>
+
+<p>Атбаш – простой подстановочный шифр. Шифрование осуществляется следующим образом: под алфавитом открытого текста побуквенно записывается этот же алфавит в обратном порядке. Каждой букве открытого текста взаимно-однозначно соответствует буква из нижней строки. Дешифрование осуществляется путем соотнесения каждой букве криптограммы соответствующей буквы алфавита верхней строки. Другими словами, если алфавит имеет длину n, то i-ой букве алфавита ставится в соответствие буква с номером -i (mod n).</p>
+
+<label for="atbash-alph">Алфавит сообщений:</label>
+<br>
+<textarea id="atbash-alph" style="resize: none;" rows="1" cols="50"></textarea>
+<br>
+<button id="atbash-btn-rus">Заполнить русским алфавитом</button>
+<button id="atbash-btn-eng">Заполнить английским алфавитом</button>
+<br>
+
+<label for="atbash-text">Введите открытый текст:</label>
+<br>
+<textarea id="atbash-text" style="resize: none;" rows="5" cols="50"></textarea>
+<br>
+<button id="atbash-encrypt">Зашифровать</button>
+<br>
+<label for="atbash-encrypted">Зашифрованный текст:</label>
+<br>
+<textarea id="atbash-encrypted" style="resize: none;" rows="5" cols="50"></textarea>
+<br>
+
+<label for="atbash-crypto">Введите криптограмму:</label>
+<br>
+<textarea id="atbash-crypto" style="resize: none;" rows="5" cols="50"></textarea>
+<br>
+<button id="atbash-decrypt">Расшифровать</button>
+<br>
+<label for="atbash-decrypted">Расшифрованный текст:</label>
+<br>
+<textarea id="atbash-decrypted" style="resize: none;" rows="5" cols="50"></textarea>
+<br>
+
+<script type="text/javascript">
+    const rusAlph = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    const engAlph = "abcdefghijklmnopqrstuvwxyz";
+
+    const setRusAlphButton = document.getElementById("atbash-btn-rus");
+    const setEngAlphButton = document.getElementById("atbash-btn-eng");
+
+    const alphTextarea = document.getElementById("atbash-alph");
+    const textTextarea = document.getElementById("atbash-text");
+    const cryptoTextarea = document.getElementById("atbash-crypto");
+    const encryptedTextarea = document.getElementById("atbash-encrypted");
+    const decryptedTextarea = document.getElementById("atbash-decrypted");
+
+    const encryptButton = document.getElementById("atbash-encrypt");
+    const decryptButton = document.getElementById("atbash-decrypt");
+
+    setRusAlphButton.onclick = () => alphTextarea.value = rusAlph;
+    setEngAlphButton.onclick = () => alphTextarea.value = engAlph;
+
+    const cypher = (msg, alph) => {
+        let res = "";
+        for (const c of msg) {
+            const idx = alph.indexOf(c);
+            if (idx === -1)
+                res += c;
+            else
+                res += alph[alph.length - idx - 1];
+        }
+        return res;
+    };
+
+    encryptButton.onclick = () => encryptedTextarea.value = cypher(textTextarea.value, alphTextarea.value);
+    decryptButton.onclick = () => decryptedTextarea.value = cypher(cryptoTextarea.value, alphTextarea.value);
+
+</script>
+
+</body>
+</html>
