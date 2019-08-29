@@ -10,18 +10,28 @@
 <p>Астрономы, вслед за Галилеем и Кеплером, продолжали использовать анаграммирование. Так Кристиан Гюйгенс, открыв кольца Сатурна, записал фразу: «Annulo cingiur tenni piano, nusquem cohaerente, ad ecliptican inclinato» («Он окружен тонким плоским кольцом, нигде не касающимся, наклоненным к эклиптике») в виде ряда частот букв:</p>
 <p>7А, 5С, ID, 5Е, 1G, 1Н, 71, 4L, 2М, 9N, 40, 2Р, 1Q, 2R, IS, 5T, 5U.</p>
 <p>В качестве алфавита открытого текста допустимо использовать русские и английские буквы, регистр игнорируется.</p>
-<input id="input-discoveries" type="text"><button id="button-discoveries">Зашифровать</button><br>
-<p>Криптограмма: </p><input id="label-discoveries">
+<p>Ниже приведена простая реализация подобного шифра.</p>
+
+<label for="discoveries-text">Открытый текст:</label>
+<br>
+<textarea id="discoveries-text" style="resize: none;" rows="5" cols="50"></textarea>
+<br>
+<button id="discoveries-encrypt">Зашифровать</button>
+<br>
+<label for="discoveries-encrypted">Криптограмма: </label>
+<br>
+<textarea id="discoveries-encrypted" style="resize: none;" rows="2" cols="50"></textarea>
+
 <script type="text/javascript">
     const isAlpha = function (char) {
         return typeof char === "string" && char.length === 1
             && ((char >= "a" && char <= "z" || char >= "A" && char <= "Z")
             || (char >= "а" && char <= "я" || char >= "А" && char <= "Я"));
     };
-    const button = document.getElementById("button-discoveries");
+    const button = document.getElementById("discoveries-encrypt");
     button.onclick = function () {
-        const input = document.getElementById("input-discoveries");
-        const text = input.value;
+        const input = document.getElementById("discoveries-text");
+        const text = input.value.toUpperCase();
         const letters = {};
         for (let i = 0; i < text.length; i++) {
             const char = text.charAt(i);
@@ -44,7 +54,7 @@
             const entry = crypto[i];
             result += entry[1].toString() + entry[0] + " ";
         }
-        const label = document.getElementById("label-discoveries");
+        const label = document.getElementById("discoveries-encrypted");
         label.value = result;
     };
 </script>
