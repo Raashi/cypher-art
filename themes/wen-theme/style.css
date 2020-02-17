@@ -62,6 +62,7 @@ body {
 #wen-footer p {
 	color: white;
 	text-align: center;
+	font-size: 1rem;
 }
 
 #wen-main {
@@ -196,14 +197,30 @@ textarea {
 	/* not expand */
 	align-self: flex-start;
 	padding: 10px;
-
-	border-radius: 3px;
-	border-width: 2px;
-	border-color: #e8e8e8;
-	border-style: solid;
-
+	margin: 0.1em;
 	/* styling */
 	background-color: white;
+	border: 0.15em solid #e8e8e8;
+}
+
+button {
+	outline: none;
+	display: inline-block;
+	padding: 0.2em 1.2em;
+	margin: 0.1em;
+	border: 0.15em solid #e8e8e8;
+	box-sizing: border-box;
+	text-decoration: none;
+	font: inherit;
+	color: #000000;
+	background-color: #ffffff;
+	text-align: center;
+}
+button:hover{
+	border-color:#7a7a7a;
+}
+button:active{
+	background-color: #d8d8d8;
 }
 
 .tabs {
