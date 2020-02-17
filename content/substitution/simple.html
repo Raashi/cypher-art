@@ -100,9 +100,9 @@
 
     const cypher = function (text, alph, key) {
         let cryptogram = "";
-        text = text.lower();
-        alph = alph.lower();
-        key = key.lower();
+        text = text.toLowerCase();
+        alph = alph.toLowerCase();
+        key = key.toLowerCase();
         for (const c of text) {
             const idx = alph.indexOf(c);
             cryptogram += (idx === -1 ? c : key[idx]);

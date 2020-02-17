@@ -66,8 +66,8 @@
     setEngAlphButton.onclick = () => alphTextarea.value = engAlph;
 
     const cypher = (msg, alph) => {
-        msg = msg.lower();
-        alph = alph.lower();
+        msg = msg.toLowerCase();
+        alph = alph.toLowerCase();
         let res = "";
         for (const c of msg) {
             const idx = alph.indexOf(c);

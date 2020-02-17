@@ -262,14 +262,15 @@
         for (let i = 0; i < rowsCount; i++)
             for (let j = 0; j < colsCount; j++)
                 if (fillSelect.value === "trivia") {
-                    table.rows[i].cells[j].innerHTML = i * colsCount + j + 1;
+                    table.rows[i].cells[j].innerHTML = (i * colsCount + j + 1).toString();
                 } else if (fillSelect.value === "snake") {
-                    table.rows[i].cells[i % 2 === 0 ? j : colsCount - j - 1].innerHTML = i * colsCount + j + 1;
+                    table.rows[i].cells[i % 2 === 0 ? j : colsCount - j - 1].innerHTML = (i * colsCount + j + 1).toString();
                 } else if (fillSelect.value === "column") {
-                    table.rows[i].cells[j].innerHTML = j * rowsCount + i + 1;
+                    table.rows[i].cells[j].innerHTML = (j * rowsCount + i + 1).toString();
                 } else if (fillSelect.value === "random") {
                     table.rows[i].cells[j].innerHTML = perm[i * colsCount + j] + 1;
                 }
+        table.setAttribute('max_elem', (rowsCount * colsCount).toString())
     };
     fillSelect.onfocus = function () {
         fillSelect.selectedIndex = -1;
