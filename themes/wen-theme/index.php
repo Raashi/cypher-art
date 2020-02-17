@@ -3,7 +3,7 @@
 <div id="wen-main">
 
 	<div class="wen-block">
-	    <h1>Не реализовано</h1>
+	    <h1>404 Страница не найдена</h1>
     </div>
 	
 </div>
