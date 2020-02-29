@@ -14,6 +14,7 @@
 
 html {
 	-webkit-text-size-adjust: 100%;
+	font-size: 18px;
 }
 
 body {
@@ -22,6 +23,10 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+}
+
+section {
+	display: block;
 }
 
 #wen-header {
@@ -127,7 +132,7 @@ body {
 }
 
 #wen-page {
-	width: 100%;
+	width: auto;
 }
 
 a {
@@ -185,6 +190,10 @@ h3 a, h3 {
 #wen-footer p {
 	color: white;
 	text-align: center;
+}
+
+#wen-cats-current .wen-cats-cat, #wen-cats-post-current {
+	color: #3f89ff;
 }
 
 textarea, button, label {
@@ -278,7 +287,18 @@ button:active{
 	display: block;
 }
 
+p, .tabs, section {
+	/*margin-block-start: 1em;*/
+	/*margin-block-end: 1em;*/
+	margin-inline-start: 0;
+	margin-inline-end: 0;
+}
+
 @media (max-width:800px) {
+	html {
+		font-size: 25px;
+	}
+
 	#wen-main {
 		display: block;
 	}

@@ -5,8 +5,9 @@ include "cats.php";
 
 <div id="wen-main">
 	<?php
+    $post = get_queried_object();
     $category = get_the_category()[0];
-    wen_write_cats_block($category);
+    wen_write_cats_block($category, $post);
     ?>
 
 	<div id="wen-content" class="wen-block">

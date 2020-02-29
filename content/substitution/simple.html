@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-<html lang="rus">
-<head>
-    <meta charset="UTF-8">
-    <title>Шифр простой замены</title>
-</head>
-<body>
-
 <p>Шифр простой замены - класс методов шифрования, в которых каждой букве алфавита открытого текста ставится в соответствие буква алфавита криптограммы. Данное сопоставление будем называть таблицей шифрования. Для расшифровки шифр-текстов достаточно знать таблицу шифрования, либо алгоритм, по которому она генерируется.</p>
-<p>Ниже представлена простая реализация шифра простой замены.
+<p>Ниже представлена простая реализация шифра простой замены.</p>
 
-<label for="simple-textarea-alph">Алфавит открытого текста:</label><br>
-<div style="display: flex; align-items: center;">
-    <textarea id="simple-textarea-alph" style="resize: none;" rows="1" cols="50"></textarea>
-    <button id="simple-btn-alph-copy">&#8595;</button>
-</div>
+<section>
+    <label for="simple-textarea-alph">Алфавит открытого текста:</label><br>
+    <div style="display: flex; align-items: center;">
+        <textarea id="simple-textarea-alph" style="resize: none;" rows="1" cols="50"></textarea>
+        <button id="simple-btn-alph-copy">↓</button>
+    </div>
+    <label for="simple-select-alph">Заполнить алфавит:</label>
+    <select id="simple-select-alph">
+        <option value="rus">Русский язык</option>
+        <option value="eng">Английский язык</option>
+    </select>
+</section>
 
-<label for="simple-select-alph">Заполнить алфавит:</label>
-<select id="simple-select-alph">
-    <option value="rus">Русский язык</option>
-    <option value="eng">Английский язык</option>
-</select>
-<br>
-
-<label for="simple-textarea-alph-key">Перестановка алфавита шифр-текста:</label>
-<br>
-<div style="display: flex; align-items: center;">
-    <textarea id="simple-textarea-alph-key" style="resize: none;" rows="1" cols="50"></textarea>
-    <button id="simple-btn-mix">Перемешать</button>
-</div>
+<section>
+    <label for="simple-textarea-alph-key">Перестановка алфавита шифр-текста:</label>
+    <br>
+    <div style="display: flex; align-items: center;">
+        <textarea id="simple-textarea-alph-key" style="resize: none;" rows="1" cols="50"></textarea>
+        <button id="simple-btn-mix">Перемешать</button>
+    </div>
+</section>
 
 <div class="tabs">
-    <input name="tabs" type="radio" id="tab-1" checked="checked" class="input"/>
+    <input name="tabs" type="radio" id="tab-1" checked="checked" class="input">
     <label for="tab-1" class="label">Шифрование</label>
     <div class="panel">
         <label for="simple-text">Открытый текст:</label>
@@ -44,7 +38,7 @@
         <textarea id="simple-encrypted" style="resize: none;" rows="5" cols="50"></textarea>
     </div>
 
-    <input name="tabs" type="radio" id="tab-2" class="input"/>
+    <input name="tabs" type="radio" id="tab-2" class="input">
     <label for="tab-2" class="label">Дешифрование</label>
     <div class="panel">
         <label for="simple-crypto">Криптограмма:</label>
@@ -138,6 +132,3 @@
         decryptedTextarea.value = cypher(crypto, key, alph);
     };
 </script>
-
-</body>
-</html>
