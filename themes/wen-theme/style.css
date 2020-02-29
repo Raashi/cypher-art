@@ -59,12 +59,6 @@ body {
 	background-color: #494949;
 }
 
-#wen-footer p {
-	color: white;
-	text-align: center;
-	font-size: 1rem;
-}
-
 #wen-main {
 	/* positioning */
 	flex: 1; /* positioning inside parent - body selector */
@@ -95,6 +89,8 @@ body {
 	border-width: 2px;
 	border-color: #e8e8e8;
 	border-style: solid;
+
+	overflow: auto;
 
 	/* styling */
 	background-color: white;
@@ -165,7 +161,7 @@ p, a, label, li {
 	font-size: 1.15rem;
 }
 
-textarea, button {
+textarea, button, select {
 	font-size: 0.85rem;
 }
 
@@ -184,6 +180,11 @@ h2 a, h2 {
 
 h3 a, h3 {
 	font-size: 1.5rem;
+}
+
+#wen-footer p {
+	color: white;
+	text-align: center;
 }
 
 textarea, button, label {
@@ -228,6 +229,7 @@ button:active{
 	flex-wrap: wrap;
 	border: #e8e8e8 solid 2px;
 	margin: 10px auto;
+	overflow: auto;
 }
 
 .input {
@@ -274,4 +276,20 @@ button:active{
 
 .input:checked + .label + .panel {
 	display: block;
+}
+
+@media (max-width:800px) {
+	#wen-main {
+		display: block;
+	}
+
+	#wen-cats {
+		width: auto;
+		min-width: 0;
+		max-width: none;
+	}
+
+	.wen-cats-subcat {
+		width: auto;
+	}
 }
