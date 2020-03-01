@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="rus">
+<html lang="ru">
 <head>
 	<?php wp_head(); ?>
 	<title><?php echo get_bloginfo(); ?></title>
