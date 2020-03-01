@@ -14,7 +14,7 @@
 
 html {
 	-webkit-text-size-adjust: 100%;
-	font-size: 18px;
+	font-size: 22px;
 }
 
 body {
@@ -166,16 +166,16 @@ td:not(:first-child) {
 }
 
 p, a, label, li {
-	font-size: 1.15rem;
+	font-size: 1rem;
 }
 
-textarea, button, select {
-	font-size: 0.85rem;
+textarea, button, select, option {
+	font-size: 0.75rem;
 }
 
 p, li {
 	text-align: justify;
-	line-height: 1.5rem;
+	line-height: 1.4rem;
 }
 
 li {
@@ -304,8 +304,6 @@ button:active{
 }
 
 p, .tabs, section {
-	/*margin-block-start: 1em;*/
-	/*margin-block-end: 1em;*/
 	margin-inline-start: 0;
 	margin-inline-end: 0;
 }
