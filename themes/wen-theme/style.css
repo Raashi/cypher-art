@@ -310,11 +310,18 @@ p, .tabs, section {
 
 @media (max-width:800px) {
 	html {
-		font-size: 25px;
+		font-size: 12px;
+	}
+
+	.wen-block {
+		margin-left: 0;
+		margin-right: 0;
 	}
 
 	#wen-main {
 		display: block;
+		padding-left: 0;
+		padding-right: 0;
 	}
 
 	#wen-cats {
